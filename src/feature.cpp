@@ -102,7 +102,12 @@ int Feature::parse(std::string jsonText)
                 rapidjson::StringBuffer sb;
                 rapidjson::Writer<rapidjson::StringBuffer> writer( sb );
                 jsonGeometry.Accept( writer );
-                geometry->parse(sb.GetString());
+                int retVal = geometry->parse(sb.GetString());
+                if(retVal != 0)
+                {
+                    delete geometry;
+                    return 5;
+                }
             } else
                 return 3;
         } else

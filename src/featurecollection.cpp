@@ -77,7 +77,14 @@ int FeatureCollection::parse(std::string jsonText)
                         rapidjson::StringBuffer sb;
                         rapidjson::Writer<rapidjson::StringBuffer> writer( sb );
                         itr->Accept( writer );
-                        features.back()->parse(sb.GetString());
+                        int retVal = features.back()->parse(sb.GetString());
+                        if(retVal != 0)
+                        {
+                            for(auto feature : features)
+                                delete feature;
+                            features.clear();
+                            return 5;
+                        }
                     } else
                         return 4;
 

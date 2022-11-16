@@ -92,7 +92,14 @@ int GeometryCollection::parse(std::string jsonText)
                     rapidjson::StringBuffer sb;
                     rapidjson::Writer<rapidjson::StringBuffer> writer( sb );
                     jsonGeometry.Accept( writer );
-                    geometries.back()->parse(sb.GetString());
+                    int retVal = geometries.back()->parse(sb.GetString());
+                    if(retVal != 0)
+                    {
+                        for(auto geometry : geometries)
+                            delete geometry;
+                        geometries.clear();
+                        return 5;
+                    }
                 } else
                     return 3;
             }

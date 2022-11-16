@@ -62,7 +62,12 @@ GeoJSON::Object * GeoJSON::parse(std::string jsonFile)
                 rapidjson::StringBuffer sb;
                 rapidjson::Writer<rapidjson::StringBuffer> writer( sb );
                 rootObject.Accept( writer );
-                root->parse(sb.GetString());
+                int retVal = root->parse(sb.GetString());
+                if(retVal != 0)
+                {
+                    delete root;
+                    root = nullptr;
+                }
 
             }
         }
