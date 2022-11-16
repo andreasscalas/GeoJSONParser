@@ -1,0 +1,2 @@
+/usr/bin/ar qc libGeoJSONParser.a CMakeFiles/GeoJSONParser.dir/src/featurecollection.cpp.o CMakeFiles/GeoJSONParser.dir/src/feature.cpp.o CMakeFiles/GeoJSONParser.dir/src/point.cpp.o CMakeFiles/GeoJSONParser.dir/src/multipoint.cpp.o CMakeFiles/GeoJSONParser.dir/src/linestring.cpp.o CMakeFiles/GeoJSONParser.dir/src/multilinestring.cpp.o CMakeFiles/GeoJSONParser.dir/src/polygon.cpp.o CMakeFiles/GeoJSONParser.dir/src/multipolygon.cpp.o CMakeFiles/GeoJSONParser.dir/src/geometrycollection.cpp.o CMakeFiles/GeoJSONParser.dir/src/utils.cpp.o
+/usr/bin/ranlib libGeoJSONParser.a

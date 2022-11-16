@@ -1,0 +1,4 @@
+/home/andreas/Documenti/Progetti/GeoJSONParser/build-debug/CMakeFiles/GeoJSONParser.dir
+/home/andreas/Documenti/Progetti/GeoJSONParser/build-debug/CMakeFiles/GeoJSONParser_Test.dir
+/home/andreas/Documenti/Progetti/GeoJSONParser/build-debug/CMakeFiles/edit_cache.dir
+/home/andreas/Documenti/Progetti/GeoJSONParser/build-debug/CMakeFiles/rebuild_cache.dir
