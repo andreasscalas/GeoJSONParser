@@ -68,29 +68,29 @@ int LineString::parse(std::string jsonText)
         if(rootObject.HasMember("coordinates") && rootObject["coordinates"].IsArray())
         {
             rapidjson::Value jsonCoordinates = rootObject["coordinates"].GetArray();
-            for(auto& v : jsonCoordinates.GetArray())
-                if(v.IsArray() && v.Size() >= 2)
+            for(auto& positionsArray : jsonCoordinates.GetArray())
+                if(positionsArray.IsArray() && positionsArray.Size() >= 2)
                 {
-                    Coordinates p;
-                    if(v[0].IsDouble())
-                        p.longitude = v[0].GetDouble();
+                    Coordinates position;
+                    if(positionsArray[0].IsDouble())
+                        position.longitude = positionsArray[0].GetDouble();
                     else
                         return 4;
 
-                    if(v[1].IsDouble())
-                        p.latitude = v[1].GetDouble();
+                    if(positionsArray[1].IsDouble())
+                        position.latitude = positionsArray[1].GetDouble();
                     else
                         return 4;
 
-                    if(v.Size() > 2)
+                    if(positionsArray.Size() > 2)
                     {
-                        if(v[2].IsDouble())
-                            p.elevation = v[2].GetDouble();
+                        if(positionsArray[2].IsDouble())
+                            position.elevation = positionsArray[2].GetDouble();
                         else
                             return 4;
                     } else
-                        p.elevation = -std::numeric_limits<double>::max();
-                    coordinates.push_back(p);
+                        position.elevation = -std::numeric_limits<double>::max();
+                    coordinates.push_back(position);
                 } else
                     return 3;
         } else

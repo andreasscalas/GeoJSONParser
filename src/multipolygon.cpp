@@ -85,16 +85,16 @@ int MultiPolygon::parse(std::string jsonText)
         if(rootObject.HasMember("coordinates") && rootObject["coordinates"].IsArray())
         {
             rapidjson::Value jsonCoordinates = rootObject["coordinates"].GetArray();
-            for(auto& cvv : jsonCoordinates.GetArray())
-                if(cvv.IsArray())
+            for(auto& polygonPositionsArray : jsonCoordinates.GetArray())
+                if(polygonPositionsArray.IsArray())
                 {
 
-                    std::vector<std::vector<Coordinates> > positionsVectorVector;
-                    for(auto& cv : cvv.GetArray())
-                        if(cv.IsArray())
+                    std::vector<std::vector<Coordinates> > positionsArrayOfArrays;
+                    for(auto& boundaryPositionsArray : polygonPositionsArray.GetArray())
+                        if(boundaryPositionsArray.IsArray())
                         {
-                            std::vector<Coordinates> positionsVector;
-                            for(auto& v : cv.GetArray())
+                            std::vector<Coordinates> positionsArray;
+                            for(auto& v : boundaryPositionsArray.GetArray())
                             {
 
                                 if(v.IsArray() && v.Size() >= 2)
@@ -118,15 +118,15 @@ int MultiPolygon::parse(std::string jsonText)
                                             return 6;
                                     } else
                                         p.elevation = -std::numeric_limits<double>::max();
-                                    positionsVector.push_back(p);
+                                    positionsArray.push_back(p);
                                 } else
                                     return 5;
                             }
-                            positionsVectorVector.push_back(positionsVector);
+                            positionsArrayOfArrays.push_back(positionsArray);
                         } else
                             return 4;
 
-                    coordinates.push_back(positionsVectorVector);
+                    coordinates.push_back(positionsArrayOfArrays);
                 } else
                     return 3;
 

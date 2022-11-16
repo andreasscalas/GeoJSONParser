@@ -4,6 +4,9 @@
 namespace GeoJSON
 {
 
+    /**
+     * @brief The Type enum lists the types of GeoJSON Objects
+     */
     enum class Type{
         FeatureCollection,
         Feature,

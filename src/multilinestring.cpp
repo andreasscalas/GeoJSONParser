@@ -79,39 +79,39 @@ int MultiLineString::parse(std::string jsonText)
         if(rootObject.HasMember("coordinates") && rootObject["coordinates"].IsArray())
         {
             rapidjson::Value jsonCoordinates = rootObject["coordinates"].GetArray();
-            for(auto& cv : jsonCoordinates.GetArray())
-                if(cv.IsArray())
+            for(auto& lineStringsPositionsArray : jsonCoordinates.GetArray())
+                if(lineStringsPositionsArray.IsArray())
                 {
-                    std::vector<Coordinates> positionsVector;
-                    for(auto& v : cv.GetArray())
+                    std::vector<Coordinates> positionsArray;
+                    for(auto& lineStringPositionsArray : lineStringsPositionsArray.GetArray())
                     {
 
-                        if(v.IsArray() && v.Size() >= 2)
+                        if(lineStringPositionsArray.IsArray() && lineStringPositionsArray.Size() >= 2)
                         {
-                            Coordinates p;
-                            if(v[0].IsDouble())
-                                p.longitude = v[0].GetDouble();
+                            Coordinates position;
+                            if(lineStringPositionsArray[0].IsDouble())
+                                position.longitude = lineStringPositionsArray[0].GetDouble();
                             else
                                 return 5;
 
-                            if(v[1].IsDouble())
-                                p.latitude = v[1].GetDouble();
+                            if(lineStringPositionsArray[1].IsDouble())
+                                position.latitude = lineStringPositionsArray[1].GetDouble();
                             else
                                 return 5;
 
-                            if(v.Size() > 2)
+                            if(lineStringPositionsArray.Size() > 2)
                             {
-                                if(v[2].IsDouble())
-                                    p.elevation = v[2].GetDouble();
+                                if(lineStringPositionsArray[2].IsDouble())
+                                    position.elevation = lineStringPositionsArray[2].GetDouble();
                                 else
                                     return 5;
                             } else
-                                p.elevation = -std::numeric_limits<double>::max();
-                            positionsVector.push_back(p);
+                                position.elevation = -std::numeric_limits<double>::max();
+                            positionsArray.push_back(position);
                         } else
                             return 4;
                     }
-                    coordinates.push_back(positionsVector);
+                    coordinates.push_back(positionsArray);
                 } else
                     return 3;
         } else

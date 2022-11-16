@@ -15,7 +15,6 @@
 #include <stringbuffer.h>
 #include <writer.h>
 
-
 GeoJSON::Object * GeoJSON::parse(std::string jsonFile)
 {
 
