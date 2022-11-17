@@ -8,9 +8,9 @@
 #include <polygon.h>
 #include <sstream>
 #include <iostream>
-#include <document.h>
-#include <stringbuffer.h>
-#include <writer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 using namespace GeoJSON;
 Feature::Feature()

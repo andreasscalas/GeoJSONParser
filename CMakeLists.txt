@@ -1,30 +1,29 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(GeoJSONParser LANGUAGES CXX)
+set(version 1.0)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(GeoJSON_H ${CMAKE_CURRENT_SOURCE_DIR}/include/)
-set(GeoJSON_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/)
-find_package(RapidJSON)
-find_path(RAPIDJSON_H rapidjson-master/include/)
-include_directories(GeoJSONParser
-    ${RAPIDJSON_H}
-)
+set(GeoJSONParser_H ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(GeoJSON_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+find_path(RapidJSON_INCLUDE_DIRS rapidjson)
+
+
 set(HDRS
-    ${GeoJSON_H}/object.h
-    ${GeoJSON_H}/featurecollection.h
-    ${GeoJSON_H}/feature.h
-    ${GeoJSON_H}/geometry.h
-    ${GeoJSON_H}/point.h
-    ${GeoJSON_H}/multipoint.h
-    ${GeoJSON_H}/linestring.h
-    ${GeoJSON_H}/multilinestring.h
-    ${GeoJSON_H}/polygon.h
-    ${GeoJSON_H}/multipolygon.h
-    ${GeoJSON_H}/geometrycollection.h
-    ${GeoJSON_H}/utils.h
-    ${GeoJSON_H}/types.h
+    ${GeoJSONParser_H}/object.h
+    ${GeoJSONParser_H}/featurecollection.h
+    ${GeoJSONParser_H}/feature.h
+    ${GeoJSONParser_H}/geometry.h
+    ${GeoJSONParser_H}/point.h
+    ${GeoJSONParser_H}/multipoint.h
+    ${GeoJSONParser_H}/linestring.h
+    ${GeoJSONParser_H}/multilinestring.h
+    ${GeoJSONParser_H}/polygon.h
+    ${GeoJSONParser_H}/multipolygon.h
+    ${GeoJSONParser_H}/geometrycollection.h
+    ${GeoJSONParser_H}/utils.h
+    ${GeoJSONParser_H}/types.h
 )
 set(SRCS
     ${GeoJSON_SRC}/featurecollection.cpp
@@ -40,7 +39,27 @@ set(SRCS
 )
 
 add_library(GeoJSONParser ${HDRS} ${SRCS})
-target_include_directories(GeoJSONParser PUBLIC ${GeoJSON_H} ${RAPIDJSON_H})
+target_include_directories(GeoJSONParser PUBLIC $<BUILD_INTERFACE:${GeoJSONParser_H}/> ${RapidJSON_INCLUDE_DIRS})
 
 add_executable(GeoJSONParser_Test ${HDRS} ${SRCS} ${GeoJSON_SRC}/main.cpp)
-target_include_directories(GeoJSONParser_Test PUBLIC ${GeoJSON_H} ${RAPIDJSON_H})
+target_include_directories(GeoJSONParser_Test PUBLIC $<BUILD_INTERFACE:${GeoJSONParser_H}/> ${RapidJSON_INCLUDE_DIRS})
+
+install(FILES  ${HDRS}  DESTINATION include/GeoJSONParser-${version})
+install(TARGETS GeoJSONParser
+        DESTINATION lib/GeoJSONParser-${version}
+        EXPORT GeoJSONParser-targets)
+install(EXPORT GeoJSONParser-targets
+        DESTINATION lib/GeoJSONParser-${version})
+
+configure_file(
+   ${GeoJSONParser_SOURCE_DIR}/pkg/geojsonparser-config.cmake.in
+   ${GeoJSONParser_BINARY_DIR}/pkg/geojsonparser-config.cmake @ONLY)
+
+configure_file(
+   ${GeoJSONParser_SOURCE_DIR}/pkg/geojsonparser-config-version.cmake.in
+   ${GeoJSONParser_BINARY_DIR}/pkg/geojsonparser-config-version.cmake @ONLY)
+
+install(FILES ${GeoJSONParser_BINARY_DIR}/pkg/geojsonparser-config.cmake
+         ${GeoJSONParser_BINARY_DIR}/pkg/geojsonparser-config-version.cmake
+         DESTINATION lib/GeoJSONParser-${version})
+

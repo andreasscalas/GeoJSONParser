@@ -5,10 +5,10 @@
 #include <multipolygon.h>
 #include <point.h>
 #include <polygon.h>
-#include <document.h>
+#include <rapidjson/document.h>
 #include <sstream>
-#include <stringbuffer.h>
-#include <writer.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 using namespace GeoJSON;
 GeometryCollection::GeometryCollection()

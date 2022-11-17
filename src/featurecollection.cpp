@@ -1,8 +1,8 @@
 #include <featurecollection.h>
-#include <document.h>
+#include <rapidjson/document.h>
 #include <sstream>
-#include <stringbuffer.h>
-#include <writer.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 
 using namespace GeoJSON;

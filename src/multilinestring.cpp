@@ -1,5 +1,5 @@
 #include <multilinestring.h>
-#include <document.h>
+#include <rapidjson/document.h>
 #include <sstream>
 
 using namespace GeoJSON;

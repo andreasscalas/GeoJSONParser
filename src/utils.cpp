@@ -9,11 +9,11 @@
 #include <multipolygon.h>
 #include <geometrycollection.h>
 
-#include <document.h>
+#include <rapidjson/document.h>
 #include <fstream>
-#include <istreamwrapper.h>
-#include <stringbuffer.h>
-#include <writer.h>
+#include <rapidjson/istreamwrapper.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 GeoJSON::Object * GeoJSON::parse(std::string jsonFile)
 {
