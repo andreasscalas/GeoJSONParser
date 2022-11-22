@@ -7,3 +7,5 @@ include("${_prefix}/lib/GeoJSONParser-@version@/GeoJSONParser-targets.cmake")
 
 # Report other information.
 set(GeoJSONParser_INCLUDE_DIRS "${_prefix}/include/GeoJSONParser-@version@")
+
+file(GLOB TriangleMesh_LIBRARIES "${_prefix}/lib/TriangleMesh-@version@/lib*")

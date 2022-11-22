@@ -6,7 +6,7 @@ set(version 1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(GeoJSONParser_H ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(GeoJSON_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(GeoJSONParser_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 find_path(RapidJSON_INCLUDE_DIRS rapidjson)
 
 
@@ -26,22 +26,22 @@ set(HDRS
     ${GeoJSONParser_H}/types.h
 )
 set(SRCS
-    ${GeoJSON_SRC}/featurecollection.cpp
-    ${GeoJSON_SRC}/feature.cpp
-    ${GeoJSON_SRC}/point.cpp
-    ${GeoJSON_SRC}/multipoint.cpp
-    ${GeoJSON_SRC}/linestring.cpp
-    ${GeoJSON_SRC}/multilinestring.cpp
-    ${GeoJSON_SRC}/polygon.cpp
-    ${GeoJSON_SRC}/multipolygon.cpp
-    ${GeoJSON_SRC}/geometrycollection.cpp
-    ${GeoJSON_SRC}/utils.cpp
+    ${GeoJSONParser_SRC}/featurecollection.cpp
+    ${GeoJSONParser_SRC}/feature.cpp
+    ${GeoJSONParser_SRC}/point.cpp
+    ${GeoJSONParser_SRC}/multipoint.cpp
+    ${GeoJSONParser_SRC}/linestring.cpp
+    ${GeoJSONParser_SRC}/multilinestring.cpp
+    ${GeoJSONParser_SRC}/polygon.cpp
+    ${GeoJSONParser_SRC}/multipolygon.cpp
+    ${GeoJSONParser_SRC}/geometrycollection.cpp
+    ${GeoJSONParser_SRC}/utils.cpp
 )
 
 add_library(GeoJSONParser ${HDRS} ${SRCS})
 target_include_directories(GeoJSONParser PUBLIC $<BUILD_INTERFACE:${GeoJSONParser_H}/> ${RapidJSON_INCLUDE_DIRS})
 
-add_executable(GeoJSONParser_Test ${HDRS} ${SRCS} ${GeoJSON_SRC}/main.cpp)
+add_executable(GeoJSONParser_Test ${HDRS} ${SRCS} ${GeoJSONParser_SRC}/main.cpp)
 target_include_directories(GeoJSONParser_Test PUBLIC $<BUILD_INTERFACE:${GeoJSONParser_H}/> ${RapidJSON_INCLUDE_DIRS})
 
 install(FILES  ${HDRS}  DESTINATION include/GeoJSONParser-${version})
